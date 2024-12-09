@@ -1,3 +1,7 @@
+// Import access to data
+import categoryRepository from "./categoryRepository";
+
+// Some data
 const categories = [
   {
     id: 1,
@@ -9,17 +13,14 @@ const categories = [
   },
 ];
 
+// Declare the actions
+
 import type { RequestHandler } from "express";
 
-const browse: RequestHandler = (req, res) => {
-  if (req.query.q != null) {
-    const filteredCategory = categories.filter((cat) =>
-      cat.name.includes(req.query.q as string),
-    );
-    res.json(filteredCategory);
-  } else {
-    res.json(categories);
-  }
+const browse: RequestHandler = async (req, res) => {
+  const catgegoriesFromDB = await categoryRepository.readAll();
+
+  res.json(catgegoriesFromDB);
 };
 
 const read: RequestHandler = (req, res) => {

@@ -1,5 +1,6 @@
 // Load environment variables from .env file
 import "dotenv/config";
+import type { RequestHandler } from "express";
 
 // Check database connection
 // Note: This is optional and can be removed if the database connection
@@ -11,6 +12,12 @@ import app from "./app";
 
 // Get the port from the environment variables
 const port = process.env.APP_PORT;
+
+// Test new route
+const welcome: RequestHandler = (req, res) => {
+  res.send("Welcome to Wild Series !");
+};
+app.get("/welcome", welcome);
 
 // Start the server and listen on the specified port
 app

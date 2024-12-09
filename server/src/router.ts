@@ -15,15 +15,21 @@ router.post("/api/items", itemActions.add);
 
 /* ************************************************************************* */
 
-// Declaration of a welcome Route
-import sayActions from "./modules/say/sayActions";
-router.get("/welcome", sayActions.sayWelcome);
+// Declaration of programs Route
+import programActions from "./modules/program/programActions";
+router.get("/api/programs", programActions.browse);
+router.get("/api/programs/:id", programActions.read);
 
 /* ************************************************************************* */
 
-// Declaration of a programs Route
-import browse from "./modules/program/programActions";
-router.get("/api/programs", browse);
+// Declaration of categories Route
+import categoryActions from "./modules/category/categoryActions";
+router.get("/api/categories", categoryActions.browse);
+router.get("/api/categories/:id", categoryActions.read);
+
+// Declaration of a welcome Route
+import sayActions from "./modules/say/sayActions";
+router.get("/welcome", sayActions.sayWelcome);
 
 /* ************************************************************************* */
 

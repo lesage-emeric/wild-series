@@ -47,6 +47,15 @@ class CategoryRepository {
     );
     return result.insertId;
   }
+
+  // D of BREAD // D of CRUD
+  async delete(id: number) {
+    const [result] = await databaseClient.query<Result>(
+      "delete from category where id = ?",
+      [id],
+    );
+    return result.affectedRows;
+  }
 }
 
 export default new CategoryRepository();

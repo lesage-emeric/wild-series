@@ -69,4 +69,18 @@ const add: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
+
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    // Delete a specific category based on the provided ID
+    const categoryId = Number(req.params.id);
+    await categoryRepository.delete(categoryId);
+
+    // Respond with HTTP 204 (No content) anyway
+    res.status(204);
+  } catch (err) {
+    // Pass any errors to the error handling middleware
+    next(err);
+  }
+};
 export default { browse, read };

@@ -60,4 +60,14 @@ const add: RequestHandler = async (req, res, next) => {
   }
 };
 
+const destroy: RequestHandler = async (req, res, next) => {
+  try {
+    const programId = Number(req.params.id);
+    await programRepository.delete(programId);
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default { browse, read };

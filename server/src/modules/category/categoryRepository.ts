@@ -13,7 +13,7 @@ class CategoryRepository {
     // Execute the SQL SELECT query to retrieve a specific category by its ID
     const [rows] = await databaseClient.query<Rows>(
       "select * from category where id = ?",
-      [id]
+      [id],
     );
 
     // Return the first row of the result, which represents the category
@@ -34,7 +34,7 @@ class CategoryRepository {
     // Execute the SQL UPDATE query to update an existing category in the "category" table
     const [result] = await databaseClient.query<Result>(
       "update category set name = ? where id = ?",
-      [category.name, category.id]
+      [category.name, category.id],
     );
     return result.affectedRows;
   }
@@ -43,7 +43,7 @@ class CategoryRepository {
   async create(category: Omit<Category, "id">) {
     const [result] = await databaseClient.query<Result>(
       "insert into category (name) values (?)",
-      [category.name]
+      [category.name],
     );
     return result.insertId;
   }

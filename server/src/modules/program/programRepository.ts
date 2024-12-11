@@ -16,7 +16,7 @@ class ProgramRepository {
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
       "select * from program where id = ?",
-      [id]
+      [id],
     );
     return rows[0] as Program;
   }
@@ -33,7 +33,7 @@ class ProgramRepository {
     //
     const [result] = await databaseClient.query<Result>(
       "update program set name = ? where id = ?",
-      [program.title, program.id]
+      [program.title, program.id],
     );
     return result.affectedRows;
   }
@@ -41,7 +41,7 @@ class ProgramRepository {
   async create(program: Omit<Program, "id">) {
     const [result] = await databaseClient.query<Result>(
       "insert into program (title) values (?)",
-      [program.title]
+      [program.title],
     );
     return result.insertId;
   }

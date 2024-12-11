@@ -12,6 +12,16 @@ type Program = {
 };
 
 class ProgramRepository {
+  // R of BREAD
+  async read(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "select * from program where id = ?",
+      [id],
+    );
+    return rows[0] as Program;
+  }
+
+  // B of BREAD
   async readAll() {
     //
     const [rows] = await databaseClient.query<Rows>("select * from program");

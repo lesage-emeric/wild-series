@@ -1,18 +1,6 @@
 // Import access to data
 import categoryRepository from "./categoryRepository";
 
-// Some data
-const categories = [
-  {
-    id: 1,
-    name: "Comédie",
-  },
-  {
-    id: 2,
-    name: "Science-fiction",
-  },
-];
-
 // Declare the actions
 
 import type { RequestHandler } from "express";
@@ -29,14 +17,18 @@ const browse: RequestHandler = async (req, res, next) => {
   }
 };
 
-const read: RequestHandler = (req, res) => {
-  const catId = Number.parseInt(req.params.id);
-  const category = categories.find((c) => c.id === catId);
+const read: RequestHandler = async (req, res, next) => {
+  try {
+    const categoryId = Number.parseInt(req.params.id);
+    const category = await categoryRepository.read(categoryId);
 
-  if (category != null) {
-    res.json(category);
-  } else {
-    res.sendStatus(404);
+    if (category != null) {
+      res.json(category);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch (err) {
+    next(err);
   }
 };
 

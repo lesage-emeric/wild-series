@@ -32,4 +32,24 @@ const read: RequestHandler = async (req, res, next) => {
   }
 };
 
+const edit: RequestHandler = async (req, res, next) => {
+  try {
+    // Update a specific category based on the provided ID
+    const category = {
+      id: Number(req.params.id),
+      name: req.body.name,
+    };
+
+    const affectedRows = await categoryRepository.update(category);
+
+    if (affectedRows === 0) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default { browse, read };

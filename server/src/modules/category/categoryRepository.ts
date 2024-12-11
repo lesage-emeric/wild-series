@@ -28,6 +28,16 @@ class CategoryRepository {
     // Return the array of categories
     return rows as Category[];
   }
+
+  // E of BREAD
+  async update(category: Category) {
+    // Execute the SQL UPDATE query to update an existing category in the "category" table
+    const [result] = await databaseClient.query<Result>(
+      "update category set name = ? where id = ?",
+      [category.name, category.id],
+    );
+    return result.affectedRows;
+  }
 }
 
 export default new CategoryRepository();

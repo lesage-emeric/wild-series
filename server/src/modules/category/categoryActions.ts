@@ -52,4 +52,21 @@ const edit: RequestHandler = async (req, res, next) => {
   }
 };
 
+const add: RequestHandler = async (req, res, next) => {
+  try {
+    // Extract the category data from the request body
+    const newCategory = {
+      name: req.body.name,
+    };
+
+    // Create the category
+    const insertId = await categoryRepository.create(newCategory);
+
+    // Repond with HTTP 201 (Created) and the ID of the newly inserted item
+    res.status(210).json({ insertId });
+  } catch (err) {
+    //Pass any errors to the error handling middleware
+    next(err);
+  }
+};
 export default { browse, read };

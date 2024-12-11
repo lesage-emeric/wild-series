@@ -37,6 +37,14 @@ class ProgramRepository {
     );
     return result.affectedRows;
   }
+
+  async create(program: Omit<Program, "id">) {
+    const [result] = await databaseClient.query<Result>(
+      "insert into program (title) values (?)",
+      [program.title]
+    );
+    return result.insertId;
+  }
 }
 
 export default new ProgramRepository();

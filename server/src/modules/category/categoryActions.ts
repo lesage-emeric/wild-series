@@ -17,10 +17,16 @@ const categories = [
 
 import type { RequestHandler } from "express";
 
-const browse: RequestHandler = async (req, res) => {
-  const catgegoriesFromDB = await categoryRepository.readAll();
-
-  res.json(catgegoriesFromDB);
+const browse: RequestHandler = async (req, res, next) => {
+  try {
+    // Fetch all categ
+    const catgegoriesFromDB = await categoryRepository.readAll();
+    // Res in json format
+    res.json(catgegoriesFromDB);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
 };
 
 const read: RequestHandler = (req, res) => {

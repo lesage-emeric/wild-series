@@ -5,9 +5,9 @@ function Programs() {
   const [programs, setPrograms] = useState<Program[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3310/api/programs")
+    fetch(`${import.meta.env.VITE_API_URL}/api/programs`)
       .then((res) => res.json())
-      .then((programsFromApi) => {
+      .then((programsFromApi: Program[]) => {
         setPrograms(programsFromApi);
       })
       .catch((error) => console.error("Fetch error:", error));
@@ -18,14 +18,14 @@ function Programs() {
       {programs.map((program) => (
         <>
           <h1 key={program.title}>{program.title}</h1>
-          <h3 key={program.synopsis}>{program.synopsis}</h3>
+          <p key={program.synopsis}>{program.synopsis}</p>
           <img
             key={`${program.title}-${program.id}`}
             src={program.poster}
             alt={program.title}
           />
-          <h5 key={program.country}>{program.country}</h5>
-          <h6 key={program.year}>{program.year}</h6>
+          <h4 key={program.country}>{program.country}</h4>
+          <h5 key={program.year}>{program.year}</h5>
         </>
       ))}
     </>
